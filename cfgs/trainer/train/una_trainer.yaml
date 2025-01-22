@@ -1,0 +1,38 @@
+## job specific set ups ## 
+exp_name: test #inpaint-flip
+exp_name: inpaint  
+#exp_name: inpaint-all-flip #_192
+#exp_name: inpaint+seg-all-flip 
+#job_name: aibl-atlas-nocontra-p1
+#job_name: all-p1 # all except isles (no real pathol with pde aug)
+job_name: t1-wpde # all datasets (after shape-matching debugging)
+#job_name: t1flair-wpde # all datasets (after shape-matching debugging) 
+#job_name: aibl-isles-p1
+
+init_method: "tcp://localhost:9990"
+
+eval_only: False 
+debug: False 
+
+resume: True 
+reset_epoch: False
+resume_optim: True 
+ckp_path: ~/results/inpaint/t1-wpde/1023-1815/ckp/checkpoint_latest.pth
+
+n_epochs: 2000
+lr_drops: [1600]  
+
+
+#### TESTING ####
+losses:
+  structure_contrastive: False #True # works well!
+weights:
+  pathol: 0. #1. # works well!
+
+
+
+condition: # flip # mask, flip, mask+flip
+num_levels: 6 # 5 (1024), 6 (2054), 7 (4096)
+
+#log_itr: 1
+#vis_itr: 1

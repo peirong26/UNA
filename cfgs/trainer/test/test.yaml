@@ -1,0 +1,21 @@
+## job specific set ups ## 
+exp_name: test 
+job_name: test
+
+init_method: "tcp://localhost:9999"
+
+eval_only: False 
+debug: False 
+
+resume: True 
+reset_epoch: False
+resume_optim: True 
+ckp_path:  
+
+
+
+condition: flip # mask, flip, mask+flip
+num_levels: 6 # 5 (1024), 6 (2054), 7 (4096)
+
+log_itr: 1
+vis_itr: 1

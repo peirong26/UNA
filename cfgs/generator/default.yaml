@@ -1,0 +1,167 @@
+device_generator:
+
+
+split: train # train or test
+save_orig_for_visualize: False 
+
+
+dataset_names: ['ADNI'] # list of datasets
+dataset_probs: # [1.] 
+modality_probs: { # default
+  'ADHD': {'T1': 0.5, 'T2': 0., 'FLAIR': 0., 'CT': 0., 'synth': 1.},
+  'HCP': {'T1': 0.3333, 'T2': 0.6667, 'FLAIR': 0., 'CT': 0., 'synth': 1.},
+  'AIBL': {'T1': 0.25, 'T2': 0.5, 'FLAIR': 0.75, 'CT': 0., 'synth': 1.},
+  'OASIS': {'T1': 0.3333, 'T2': 0., 'FLAIR': 0., 'CT': 0.6667, 'synth': 1.},
+  'ADNI': {'T1': 0.5, 'T2': 0., 'FLAIR': 0., 'CT': 0., 'synth': 1.},
+  'ADNI3': {'T1': 0.3333, 'T2': 0., 'FLAIR': 0.6667, 'CT': 0., 'synth': 1.},
+  'ATLAS': {'T1': 0.5, 'T2': 0., 'FLAIR': 0., 'CT': 0., 'synth': 1.},
+  'ISLES': {'T1': 0., 'T2': 0., 'FLAIR': 0.5, 'CT': 0., 'synth': 1.},
+} 
+
+##########################
+##### for generation #####
+##########################
+modality_probs_T1: {
+  'ADHD': {'T1': 1., 'T2': 0., 'FLAIR': 0., 'CT': 0., 'synth': 0.}, # healthy
+  'HCP': {'T1': 1., 'T2': 0., 'FLAIR': 0., 'CT': 0., 'synth': 0.}, # healthy
+  'AIBL': {'T1': 1., 'T2': 0., 'FLAIR': 0., 'CT': 0., 'synth': 0.}, # healthy
+  'OASIS': {'T1': 1., 'T2': 0., 'FLAIR': 0., 'CT': 0., 'synth': 0.}, # healthy
+}  
+modality_probs_T2: { 
+  'AIBL': {'T1': 0., 'T2': 1., 'FLAIR': 0.75, 'CT': 0., 'synth': 1.}, # healthy 
+}  
+modality_probs_FLAIR: { 
+  'AIBL': {'T1': 0., 'T2': 0., 'FLAIR': 1., 'CT': 0., 'synth': 0.}, # healthy 
+}  
+modality_probs_CT: { 
+  'OASIS': {'T1': 0., 'T2': 0., 'FLAIR': 0., 'CT': 1., 'synth': 0.}, # healthy 
+}  
+modality_probs_Synth: {
+  'ADHD': {'T1': 0., 'T2': 0., 'FLAIR': 0., 'CT': 0., 'synth': 1.}, # healthy
+  'HCP': {'T1': 0., 'T2': 0., 'FLAIR': 0., 'CT': 0., 'synth': 1.}, # healthy
+  'AIBL': {'T1': 0., 'T2': 0., 'FLAIR': 0., 'CT': 0., 'synth': 1.}, # healthy
+  'OASIS': {'T1': 0., 'T2': 0., 'FLAIR': 0., 'CT': 0., 'synth': 1.}, # healthy 
+} 
+##########################
+##########################
+##########################
+
+
+mix_synth_prob: 0. # mix synth with real images
+dataset_option: default # or brain_id
+
+
+
+# setups for training/testing tasks 
+task:
+  T1: True
+  T2: False
+  FLAIR: False
+  CT: False
+ 
+  segmentation: False 
+  registration: False
+  surface: False
+  distance: False 
+  bias_fields: False
+
+  pathology: False 
+  super_resolution: False
+
+  contrastive: False
+
+
+# setups for augmentation functions to apply
+augmentation_steps: {'synth': ['gamma', 'bias_field', 'resample', 'noise'], 'real': ['gamma', 'bias_field', 'resample', 'noise']} 
+
+
+# setups for generator
+generator:
+
+  size: [128, 128, 128]
+
+  augment: True
+
+  photo_prob: 0.2
+  max_rotation: 15
+  max_shear: 0.2
+  max_scaling: 0.2
+  nonlin_scale_min: 0.03
+  nonlin_scale_max: 0.06
+  nonlin_std_max: 4
+  bag_prob: 0.5
+  bag_scale_min: 0.02
+  bag_scale_max: 0.08
+  bf_scale_min: 0.02
+  bf_scale_max: 0.04
+  bf_std_min: 0.1
+  bf_std_max: 0.6
+  gamma_std: 0.1
+  noise_std_min: 0.5
+  noise_std_max: 1.
+  exvixo_prob: 0.25
+  exvixo_prob_vs_photo: 0.66666666666666
+
+
+  pv: True
+  random_shift: False
+  deform_one_hots: False
+  
+  produce_surfaces: False
+  bspline_zooming: False  
+  n_steps_svf_integration: 8
+  nonlinear_transform: True 
+
+
+  ct_prob: 0
+  flip_prob: 0.5
+  
+  pathology_prob: 0. # pathology_prob when synth
+  random_shape_prob: 0. # initialize pathol shape from random noise (instead of existing shapes)
+  augment_pathology: False 
+  save_orig: False 
+
+
+synth_image_generator:     
+  noise_std_min: 0.05
+  noise_std_max: 1.
+real_image_generator:     
+  noise_std_min: 0.
+  noise_std_max: 0.02 
+
+
+pathology_shape_generator:
+  shape: [200, 200, 200] # shape must be a multiple of res
+  perlin_res: [2, 2, 2] 
+  mask_percentile_min: 90
+  mask_percentile_max: 99.9
+  integ_method: dopri5 # choices=['dopri5', 'adams', 'rk4', 'euler'] 
+  bc: neumann # choices=['neumann', 'cauchy', 'dirichlet', 'source_neumann', 'dirichlet_neumann'] 
+  V_multiplier: 500
+  dt: 0.1
+  min_nt: 2 # >= 2
+  max_nt: 10 # >= 2
+  pathol_thres: 0.5
+  pathol_tol: 0.0000001 # if pathol mean < tol, skip
+
+
+
+
+### some constants
+
+max_surf_distance: 2. # clamp at plus / minus this number (both the ground truth and the prediction)
+
+## synth
+label_list_segmentation_with_csf: [0,14,15,16,24,77,85,   2, 3, 4, 7, 8, 10,11,12,13,17,18,26,28,   41,42,43,46,47,49,50,51,52,53,54,58,60] # 33
+n_neutral_labels_with_csf: 7
+label_list_segmentation_without_csf: [0,14,15,16,77,85,   2, 3, 4, 7, 8, 10,11,12,13,17,18,26,28,   41,42,43,46,47,49,50,51,52,53,54,58,60]
+n_neutral_labels_without_csf: 6
+
+
+## synth_hemi
+# without cerebellum and brainstem
+label_list_segmentation: [0, 2, 3, 4, 10, 11, 12, 13, 17, 18, 26, 28, 77]
+n_neutral_labels: 6
+
+# with cerebellum and brainstem  
+label_list_segmentation_with_cb: [0, 2, 3, 4, 7, 8, 10, 11, 12, 13, 16, 17, 18, 26, 28, 77]
