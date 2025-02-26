@@ -1,5 +1,16 @@
-# Unraveling Normal Anatomy via Fluid-Driven Anomaly Randomization
+## <p align="center">[[CVPR 2025] Unraveling Normal Anatomy via Fluid-Driven Anomaly Randomization](https://arxiv.org/abs/2501.13370)</p>
 
+**<p align="center">Peirong Liu<sup>1</sup>, Ana Lawry Aguila<sup>1</sup>, Juan E. Iglesias<sup>1,2,3</sup></p>**
+
+<p align="center">
+<sup>1</sup>Harvard Medical School and Massachusetts General Hospital<br />
+<sup>2</sup>University College London &nbsp;&nbsp; <sup>3</sup>Massachusetts Institute of Technology
+</p>
+
+
+<p align="center">
+  <img src="./assets/showcase.png" alt="drawing", width="850"/>
+</p>
 
 
 ## Downloads
@@ -32,6 +43,13 @@ To visualize UNA's fluid-driven randomization process across time, set `save_ori
 
 
 ### Healthy Anatomy Reconstruction
+
+
+<p align="center">
+  <img src="./assets/framework.png" alt="drawing", width="850"/>
+</p>
+
+
 
 ```python3
 import os, sys
@@ -149,3 +167,14 @@ After downloading the datasets, please structure the data as follows, and set up
     subject_name.nii.gz
     ...
 ```
+
+
+
+## Citation
+```bibtex
+@InProceedings{Liu_2025_UNA,
+    author    = {Liu, Peirong and Aguila, Ana L. and Iglesias, Juan E.},
+    title     = {Unraveling Normal Anatomy via Fluid-Driven Anomaly Randomization},
+    booktitle = {IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+    year      = {2025},
+}
