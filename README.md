@@ -13,6 +13,11 @@
 </p>
 
 
+## News
+
+[08/09/2024] Check out our related ECCV'2024 work [here](https://github.com/peirong26/Brain-ID) on contrast-agnostic feature representations for learning anatomical features.
+
+
 ## Downloads
 Please download UNA's weights ('./model/una.pth') and testing healthy and diseased images including both MRI and CT scans ('./data') in this [Google Drive folder](https://drive.google.com/drive/folders/1t6c1SpBbyuaecyNmxYh_ouQTcot_kkf-?usp=sharing), then move them into the './assets' folder in this repository. We also provided UNA's testing results for these testing samples in './results'.
 
