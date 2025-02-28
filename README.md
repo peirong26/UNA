@@ -52,12 +52,6 @@ To visualize UNA's fluid-driven randomization process across time, set `save_ori
 ### Healthy Anatomy Reconstruction
 
 
-<p align="center">
-  <img src="./assets/framework.png" alt="drawing", width="850"/>
-</p>
-
-
-
 ```python3
 import os, sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -95,6 +89,9 @@ You could also customize your own testing demo in `scripts/demo_test.py`. If you
 ## Training on Synthetic Data and/or Real Data
 
 
+<p align="center">
+  <img src="./assets/framework.png" alt="drawing", width="850"/>
+</p>
 
 ```
 cd /path/to/una
